@@ -27,7 +27,7 @@ import Foundation
 
 import QuartzCore
 
-public enum YapAnimatorState {
+fileprivate enum YapAnimatorState {
 	/// The `YapAnimator` is at rest
 	case possible
 	/// The `YapAnimator` has just requested that it be updated.
@@ -61,33 +61,41 @@ extension Animatable {
 	}
 }
 
-func +<T>(lhs: T, rhs: T) -> T where T: Animatable {
-	return T.composed(from: zip(lhs.components, rhs.components).flatMap { $0.0 + $0.1 })
-}
-
-func -<T>(lhs: T, rhs: T) -> T where T: Animatable {
-	return T.composed(from: zip(lhs.components, rhs.components).flatMap { $0.0 - $0.1 })
-}
-
-public struct PhysicsState<T> where T: Animatable {
-
-	public var value: T
-
-	public var velocity: T
-}
-
+/// Your fast and friendly physics based animator.
 public final class YapAnimator<T>: YapAnimatorCommonInterface where T: Animatable {
 
 	// Animation Variables
 
+	/// The target value of the animator
 	public var toValue: T {
 		didSet {
 			if oldValue.components != toValue.components {
+				targetedCompletion(self, false)
+				targetedCompletion = { _ in }
+				targetedAction = { _ in }
 				setNeedsUpdate()
 			}
 		}
 	}
 
+	/// Set the target value of the animator
+	///
+	/// - Parameter to: The target value of the animator
+	/// - Parameter action: This closure gets called every frame of the animation just like the `action` that was defined in the animator's constructor but with a very important difference: **It is only called and retained as long as this function is not called again or the toValue does not change.**
+	/// - Parameter animator: The associated `YapAnimator`
+	/// - Parameter completion: This closure gets called when the animator comes to rest or is stopped otherwise. The `Bool` value passed into this closure will be `true` if the animator comes to rest at the `toValue` or `false` if the animator is stopped for any other reason. This is just like the `completion` in the constructor but with a very important difference: **It is only called and retained as long as this function is not called again or the toValue does not change.**
+	/// - Parameter animator: The associated `YapAnimator`
+	/// - Parameter finished: `true` if the animator comes to rest at the `toValue` or `false` if the animator is stopped for any other reason.
+	func animate(to: T, action: @escaping (_ animator: YapAnimator) -> Void = { _ in }, completion: @escaping (_ animator: YapAnimator, _ finished: Bool) -> Void = { _ in }) {
+		// setting the toValue clears any extant targetedAction
+		toValue = to
+		targetedAction = action
+		// will cancel any in-flight completion
+		targetedCompletion(self, false)
+		targetedCompletion = completion
+	}
+
+	/// A value defining the bounciness of the animator. A value of `0` represents a critically dampened spring — one that moves as quickly to the target value without overshooting. A value of `1` represents an aesthetically pleasing bounce. This value can be set to values under or over this range.
 	public var bounciness = 0.0 {
 		didSet {
 			if oldValue != bounciness {
@@ -96,6 +104,7 @@ public final class YapAnimator<T>: YapAnimatorCommonInterface where T: Animatabl
 		}
 	}
 
+	/// A value defining the speed of the animator. A range from `0-1` defining aesthetically pleasing speeds has been selected by the Author, but feel free to play around with this. *Warning:* Very high speeds combined with high bounciness may 'blow up' the phsyics simulation.
 	public var speed = 1.0 {
 		didSet {
 			if oldValue != speed {
@@ -104,22 +113,40 @@ public final class YapAnimator<T>: YapAnimatorCommonInterface where T: Animatabl
 		}
 	}
 
+	/// Contains the in-flight value and velocity of the animator
 	public var current: PhysicsState<T>
 
 	fileprivate var accumulator = 0.0
 
 	fileprivate var forces = T.zero()
 
+	/// Applies an instantaneous push (using positive forces) or pull (using negative forces) to the animation
+	///
+	/// - Parameter force: The force to apply to the animator
 	public func apply(force newForce: T) {
 
 		forces = forces + newForce
 		setNeedsUpdate()
 	}
 
+	/// Cancels the animator if it is in-flight
+	public func stop() {
+
+		if state == .began || state == .updated {
+			stopExecution()
+		}
+	}
+
+	/// Create a new `Yap Animator`
+	///
+	/// - Parameter initialValue: Set the initial value of the animator
+	/// - Parameter willBegin: An optional closure that returns the 'model value' of your animated value. This is useful to synchronize the animator with a value that may get set outside of the scope of the animator.
+	/// - Parameter completion: An optional closure that gets called when the animator comes to rest or is stopped otherwise. The `Bool` value passed into this closure will be `true` if the animator comes to rest at the `toValue` or `false` if the animator is stopped for any other reason.
+	/// - Parameter action: A closure that is called at every frame of the animation. Use this closure to apply the animator's `current.value` to the value(s) that you wish to animate.
 	public init(initialValue: T,
-	     willBegin: ((YapAnimator) -> Void)? = nil,
-	     completion: ((YapAnimator, _ finished: Bool) -> Void)? = nil,
-	     action: ((YapAnimator) -> Void)?)
+	            willBegin: ((YapAnimator) -> Void)? = nil,
+	            completion: ((YapAnimator, _ finished: Bool) -> Void)? = nil,
+	            action: ((YapAnimator) -> Void)?)
 	{
 		self.current = PhysicsState(value: initialValue, velocity: T.zero())
 		self.toValue = initialValue
@@ -135,7 +162,11 @@ public final class YapAnimator<T>: YapAnimatorCommonInterface where T: Animatabl
 
 	fileprivate var action: (YapAnimator) -> Void
 
-	public var completion: (YapAnimator, _ finished: Bool) -> Void
+	fileprivate var completion: (YapAnimator, _ finished: Bool) -> Void
+
+	fileprivate var targetedAction: (YapAnimator) -> Void = { _ in }
+
+	fileprivate var targetedCompletion: (YapAnimator, _ finished: Bool) -> Void = { _ in }
 
 	fileprivate weak var observer: YapAnimatorObserver?
 
@@ -162,10 +193,19 @@ public final class YapAnimator<T>: YapAnimatorCommonInterface where T: Animatabl
 			case .began:
 				willBegin(self)
 			case .updated:
+				targetedAction(self)
 				action(self)
 			case .completed:
+				targetedCompletion(self, true)
+				targetedCompletion = { _ in }
+				targetedAction = { _ in }
+
 				completion(self, true)
 			case .cancelled:
+				targetedCompletion(self, false)
+				targetedCompletion = { _ in }
+				targetedAction = { _ in }
+
 				completion(self, false)
 			}
 			observer?.didChangeState(animator: self)
@@ -229,7 +269,7 @@ extension YapAnimator {
 		return isInMotion
 	}
 
-	func stopExecution() {
+	fileprivate func stopExecution() {
 
 		needsUpdate = false
 		if needsUpdate || state != .updated {
@@ -323,6 +363,23 @@ fileprivate extension YapAnimator {
 		state.value = T.composed(from: values)
 		state.velocity = T.composed(from: velocities)
 	}
+}
+
+// MARK: - Everything else
+
+func +<T>(lhs: T, rhs: T) -> T where T: Animatable {
+	return T.composed(from: zip(lhs.components, rhs.components).flatMap { $0.0 + $0.1 })
+}
+
+func -<T>(lhs: T, rhs: T) -> T where T: Animatable {
+	return T.composed(from: zip(lhs.components, rhs.components).flatMap { $0.0 - $0.1 })
+}
+
+public struct PhysicsState<T> where T: Animatable {
+
+	public var value: T
+
+	public var velocity: T
 }
 
 fileprivate protocol YapAnimatorCommonInterface: class {
