@@ -67,16 +67,7 @@ public class YapAnimatedLayer {
 
 	var bounciness = 0.0
 
-	private func verify(value: Animatable) -> Bool {
-		var isValid = true
-		for component in value.components {
-			isValid = isValid && component.isFinite
-			if !isValid {
-				break
-			}
-		}
-		return isValid
-	}
+	// MARK: - Animatable Properties
 
 	public lazy var bounds: YapAnimator<CGRect> = YapAnimator(initialValue: self.delegate!.bounds, willBegin: { [unowned self] animator in
 		animator.current.value = self.delegate?.bounds ?? CGRect.zero
@@ -213,14 +204,14 @@ public class YapAnimatedLayer {
 		self.delegate?.minificationFilterBias = animator.current.value
 	})
 
-	// public lazy var backgroundColor: YapAnimator<UIColor> = YapAnimator(initialValue: (self.delegate!.backgroundColor != nil) ? UIColor(cgColor: self.delegate!.backgroundColor!) : UIColor(red: 0, green: 0, blue: 0, alpha: 0), willBegin: { [unowned self] animator in
-	//    animator.current.value = self.delegate?.backgroundColor != nil ? self.delegate!.backgroundColor! : UIColor.clear.cgColor
-	//  }, action: { [unowned self] animator in
-	//	guard self.verify(value: animator.current.value) else { return }
-	//  animator.speed = self.speed
-	//  animator.bounciness = self.bounciness
-	//    self.delegate?.backgroundColor = animator.current.value.cgColor
-	//  })
+	public lazy var backgroundColor: YapAnimator<UIColor> = YapAnimator(initialValue: self.unwrappedColorOrDefault(from: self.delegate?.backgroundColor), willBegin: { [unowned self] animator in
+		animator.current.value = self.unwrappedColorOrDefault(from: self.delegate?.backgroundColor)
+	}, action: { [unowned self] animator in
+		guard self.verify(value: animator.current.value) else { return }
+		animator.speed = self.speed
+		animator.bounciness = self.bounciness
+		self.delegate?.backgroundColor = animator.current.value.cgColor
+	})
 
 	public lazy var cornerRadius: YapAnimator<CGFloat> = YapAnimator(initialValue: self.delegate!.cornerRadius, willBegin: { [unowned self] animator in
 		animator.current.value = self.delegate?.cornerRadius ?? 0
@@ -240,14 +231,14 @@ public class YapAnimatedLayer {
 		self.delegate?.borderWidth = animator.current.value
 	})
 
-	//public   lazy var borderColor: YapAnimator<CGColor> = YapAnimator(initialValue: self.delegate!.borderColor, willBegin: { [unowned self] animator in
-	//    animator.current.value = self.delegate?.borderColor ??
-	//  }, action: { [unowned self] animator in
-	//	guard self.verify(value: animator.current.value) else { return }
-	//  animator.speed = self.speed
-	//  animator.bounciness = self.bounciness
-	//    self.delegate?.borderColor = animator.current.value
-	//  })
+	public lazy var borderColor: YapAnimator<UIColor> = YapAnimator(initialValue: self.unwrappedColorOrDefault(from: self.delegate?.borderColor), willBegin: { [unowned self] animator in
+		animator.current.value = self.unwrappedColorOrDefault(from: self.delegate?.borderColor)
+	}, action: { [unowned self] animator in
+		guard self.verify(value: animator.current.value) else { return }
+		animator.speed = self.speed
+		animator.bounciness = self.bounciness
+		self.delegate?.borderColor = animator.current.value.cgColor
+	})
 
 	public lazy var opacity: YapAnimator<Float> = YapAnimator(initialValue: self.delegate!.opacity, willBegin: { [unowned self] animator in
 		animator.current.value = self.delegate?.opacity ?? 0
@@ -267,14 +258,14 @@ public class YapAnimatedLayer {
 		self.delegate?.rasterizationScale = animator.current.value
 	})
 
-	//public //  lazy var shadowColor: YapAnimator<CGColor> = YapAnimator(initialValue: self.delegate!.shadowColor, willBegin: { [unowned self] animator in
-	//    animator.current.value = self.delegate?.shadowColor ??
-	//  }, action: { [unowned self] animator in
-	//	guard self.verify(value: animator.current.value) else { return }
-	//  animator.speed = self.speed
-	//  animator.bounciness = self.bounciness
-	//    self.delegate?.shadowColor = animator.current.value
-	//  })
+	public lazy var shadowColor: YapAnimator<UIColor> = YapAnimator(initialValue: self.unwrappedColorOrDefault(from: self.delegate?.shadowColor), willBegin: { [unowned self] animator in
+		animator.current.value = self.unwrappedColorOrDefault(from: self.delegate?.shadowColor)
+	}, action: { [unowned self] animator in
+		guard self.verify(value: animator.current.value) else { return }
+		animator.speed = self.speed
+		animator.bounciness = self.bounciness
+		self.delegate?.shadowColor = animator.current.value.cgColor
+	})
 
 	public lazy var shadowOpacity: YapAnimator<Float> = YapAnimator(initialValue: self.delegate!.shadowOpacity, willBegin: { [unowned self] animator in
 		animator.current.value = self.delegate?.shadowOpacity ?? 0
@@ -302,4 +293,24 @@ public class YapAnimatedLayer {
 		animator.bounciness = self.bounciness
 		self.delegate?.shadowRadius = animator.current.value
 	})
+
+	// MARK: - Helpers
+
+	private func verify(value: Animatable) -> Bool {
+		var isValid = true
+		for component in value.components {
+			isValid = isValid && component.isFinite
+			if !isValid {
+				break
+			}
+		}
+		return isValid
+	}
+
+	private func unwrappedColorOrDefault(from color: CGColor?) -> UIColor {
+		if let color = color {
+			return UIColor(cgColor: color)
+		}
+		return UIColor.clear
+	}
 }
