@@ -6,6 +6,8 @@
 //  Copyright © 2016 Yap Studios. All rights reserved.
 //
 
+// Note: When adding `Animatable` conformance to types, be careful that the constructor does not clip or otherwise restrict values.
+
 import Foundation
 import UIKit
 
@@ -102,19 +104,18 @@ extension CGRect: Animatable {
 extension UIColor: Animatable {
 
   public static func composed(from elements: [Double]) -> Self {
-    let color = UIColor(hue: CGFloat(elements[0]), saturation: CGFloat(elements[1]), brightness: CGFloat(elements[2]), alpha: CGFloat(elements[3]))
-
+		let color = UIColor(red: CGFloat(elements[0]), green: CGFloat(elements[1]), blue: CGFloat(elements[2]), alpha: CGFloat(elements[3]))
     return self.init(cgColor: color.cgColor)
   }
 
   public var components: [Double] {
-    var hue = CGFloat(0.0)
-    var sat = CGFloat(0.0)
-    var bri = CGFloat(0.0)
-    var alp = CGFloat(0.0)
+    var r = CGFloat(0.0)
+    var g = CGFloat(0.0)
+    var b = CGFloat(0.0)
+    var a = CGFloat(0.0)
 
-    getHue(&hue, saturation: &sat, brightness: &bri, alpha: &alp)
-    return [Double(hue), Double(sat), Double(bri), Double(alp)]
+    getRed(&r, green: &g, blue: &b, alpha: &a)
+    return [Double(r), Double(g), Double(b), Double(a)]
   }
 
 	public static func zero() -> Self {
