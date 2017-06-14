@@ -27,10 +27,33 @@ send an email to me if you have any questions.
 
 */
 
-// Note: When adding `Animatable` conformance to types, be careful that the constructor does not clip or otherwise restrict values.
+
 
 import Foundation
 import UIKit
+
+/// Conforming Types are animatable using `YapAnimator`
+public protocol Animatable {
+
+	/// Conforming Types should return an Array of `Doubles` representing the Type
+	var components: [Double] { get }
+
+	/// Create an instance initialized with `elements`.
+	static func composed(from elements: [Double]) -> Self
+
+	static func zero() -> Self
+
+	static var count: Int { get }
+}
+
+extension Animatable {
+
+	public static func zero() -> Self {
+		return self.composed(from: Array<Double>(repeating: 0, count: self.count))
+	}
+}
+
+// MARK: - Examples of `Animatable` conformance for some common types
 
 extension Float: Animatable {
 
