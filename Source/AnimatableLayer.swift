@@ -63,9 +63,9 @@ public class YapAnimatedLayer {
 		self.delegate = delegate
 	}
 
-	var speed = 1.0
+	public var speed = 1.0
 
-	var bounciness = 0.0
+	public var bounciness = 0.0
 
 	// MARK: - Animatable Properties
 
