@@ -122,6 +122,21 @@ extension CGRect: Animatable {
 	}
 }
 
+extension CGVector: Animatable {
+
+	public static func composed(from elements: [Double]) -> CGVector {
+		return CGVector(dx: elements[0], dy: elements[1])
+	}
+
+	public var components: [Double] {
+		return [Double(dx), Double(dy)]
+	}
+
+	public static var count: Int {
+		return 2
+	}
+}
+
 extension UIColor: Animatable {
 
   public static func composed(from elements: [Double]) -> Self {
