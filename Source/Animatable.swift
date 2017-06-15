@@ -30,9 +30,8 @@ send an email to me if you have any questions.
 
 */
 
-
-
 import Foundation
+
 import UIKit
 
 /// Conforming Types are animatable using `YapAnimator`
