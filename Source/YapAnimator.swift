@@ -68,19 +68,25 @@ public final class YapAnimator<T>: YapAnimatorCommonInterface where T: Animatabl
 		// setting the toValue clears any extant targetedAction
 		toValue = to
 		targetedAction = action
-		// will cancel any in-flight completion
-		targetedCompletion(self, false)
-		targetedCompletion = completion
+		// copy targeted completion to call on next run loop
+		let targetedCompletionCopy = self.targetedCompletion
+		self.targetedCompletion = completion
+		DispatchQueue.main.async {
+			// will cancel any in-flight completion
+			targetedCompletionCopy(self, false)
+		}
+	}
+
+	public func animate(to: T, completion: @escaping (_ animator: YapAnimator, _ finished: Bool) -> Void) {
+		animate(to: to, action: { _ in }, completion: completion)
 	}
 
 	// Animation Variables
 
 	/// The target value of the animator
-	public var toValue: T {
+	public private(set) var toValue: T {
 		didSet {
 			if oldValue.components != toValue.components {
-				targetedCompletion(self, false)
-				targetedCompletion = { _ in }
 				targetedAction = { _ in }
 				setNeedsUpdate()
 			}
@@ -169,17 +175,23 @@ public final class YapAnimator<T>: YapAnimatorCommonInterface where T: Animatabl
 				targetedAction(self)
 				action(self)
 			case .completed:
-				targetedCompletion(self, true)
+				// copy targeted completion to call on next run loop
+				let targetedCompletionCopy = self.targetedCompletion
 				targetedCompletion = { _ in }
 				targetedAction = { _ in }
-
-				completion(self, true)
+				DispatchQueue.main.async {
+					targetedCompletionCopy(self, true)
+					self.completion(self, true)
+				}
 			case .cancelled:
-				targetedCompletion(self, false)
+				// copy targeted completion to call on next run loop
+				let targetedCompletionCopy = self.targetedCompletion
 				targetedCompletion = { _ in }
 				targetedAction = { _ in }
-
-				completion(self, false)
+				DispatchQueue.main.async {
+					targetedCompletionCopy(self, false)
+					self.completion(self, false)
+				}
 			}
 			observer?.didChangeState(animator: self)
 		}
@@ -194,6 +206,9 @@ extension YapAnimator {
 
 		if needsUpdate {
 			needsUpdate = update(dT: dT)
+			// Unlike the completion, the action can be called sync in the flow as it will
+			// update `needsUpdate` before evaluating to stop execution. This is an important
+			// flow as you might change something in the animator that requires an update.
 			transition(to: .updated)
 		}
 
