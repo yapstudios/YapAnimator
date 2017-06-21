@@ -40,45 +40,34 @@ public final class YapAnimator<T>: YapAnimatorCommonInterface where T: Animatabl
 	/// Create a new `Yap Animator`
 	///
 	/// - Parameter initialValue: Set the initial value of the animator
-	/// - Parameter willBegin: An optional closure that returns the 'model value' of your animated value. This is useful to synchronize the animator with a value that may get set outside of the scope of the animator.
-	/// - Parameter completion: An optional closure that gets called when the animator comes to rest or is stopped otherwise. The `Bool` value passed into this closure will be `true` if the animator comes to rest at the `toValue` or `false` if the animator is stopped for any other reason.
-	/// - Parameter action: A closure that is called at every frame of the animation. Use this closure to apply the animator's `current.value` to the value(s) that you wish to animate.
+	/// - Parameter willBegin: An optional closure where you return the 'model value' of the animated value. This is useful to synchronize the animator with a value that may get set outside of the scope of the animator.
+	/// - Parameter eachFrame: A closure that is called at every frame of the animation. Use this closure to apply the animator's `current.value` to the value(s) that you wish to animate.
 	public init(initialValue: T,
-	            willBegin: ((YapAnimator) -> Void)? = nil,
-	            completion: ((YapAnimator, _ finished: Bool) -> Void)? = nil,
-	            action: ((YapAnimator) -> Void)?)
+	            willBegin: (() -> T)? = nil,
+	            eachFrame: ((YapAnimator) -> Void)?)
 	{
 		self.current = PhysicsState(value: initialValue, velocity: T.zero())
 		self.toValue = initialValue
-		self.willBegin = willBegin ?? { _ in }
-		self.action = action ?? { _ in }
-		self.completion = completion ?? { _ in }
+		self.eachFrame = eachFrame ?? { _ in }
 		self.addToEngine()
 	}
 
 	/// Set the target value of the animator
 	///
 	/// - Parameter to: The target value of the animator
-	/// - Parameter action: This closure gets called every frame of the animation just like the `action` that was defined in the animator's constructor but with a very important difference: **It is only called and retained as long as this function is not called again or the toValue does not change.**
 	/// - Parameter animator: The associated `YapAnimator`
-	/// - Parameter completion: This closure gets called when the animator comes to rest or is stopped otherwise. The `Bool` value passed into this closure will be `true` if the animator comes to rest at the `toValue` or `false` if the animator is stopped for any other reason. This is just like the `completion` in the constructor but with a very important difference: **It is only called and retained as long as this function is not called again or the toValue does not change.**
+	/// - Parameter completion: This closure gets called when the animator comes to rest or is stopped otherwise. The `Bool` value passed into this closure will be `true` if the animator comes to rest at the `toValue` or `false` if the animator is stopped or a new `toValue` is set by calling this method again before the previous animation finishes.
 	/// - Parameter animator: The associated `YapAnimator`
-	/// - Parameter finished: `true` if the animator comes to rest at the `toValue` or `false` if the animator is stopped for any other reason.
-	public func animate(to: T, action: @escaping (_ animator: YapAnimator) -> Void = { _ in }, completion: @escaping (_ animator: YapAnimator, _ finished: Bool) -> Void = { _ in }) {
-		// setting the toValue clears any extant targetedAction
+	/// - Parameter wasInterrupted: `false` if the animator comes to rest at the `toValue` or `true` if the animator is stopped for any other reason.
+	public func animate(to: T, completion: @escaping (_ animator: YapAnimator, _ wasInterrupted: Bool) -> Void = { _ in }) {
 		toValue = to
-		targetedAction = action
-		// copy targeted completion to call on next run loop
-		let targetedCompletionCopy = self.targetedCompletion
-		self.targetedCompletion = completion
+		// copy completion to call on next run loop
+		let completionCopy = self.completion
+		self.completion = completion
 		DispatchQueue.main.async {
 			// will cancel any in-flight completion
-			targetedCompletionCopy(self, false)
+			completionCopy(self, true)
 		}
-	}
-
-	public func animate(to: T, completion: @escaping (_ animator: YapAnimator, _ finished: Bool) -> Void) {
-		animate(to: to, action: { _ in }, completion: completion)
 	}
 
 	// Animation Variables
@@ -86,10 +75,7 @@ public final class YapAnimator<T>: YapAnimatorCommonInterface where T: Animatabl
 	/// The target value of the animator
 	public private(set) var toValue: T {
 		didSet {
-			if oldValue.components != toValue.components {
-				targetedAction = { _ in }
-				setNeedsUpdate()
-			}
+			setNeedsUpdate()
 		}
 	}
 
@@ -137,18 +123,13 @@ public final class YapAnimator<T>: YapAnimatorCommonInterface where T: Animatabl
 
 	// Actions
 
-	fileprivate var willBegin: (YapAnimator) -> Void
+	fileprivate var willBegin: (() -> T)?
 
-	fileprivate var action: (YapAnimator) -> Void
+	fileprivate var eachFrame: (YapAnimator) -> Void
 
-	fileprivate var completion: (YapAnimator, _ finished: Bool) -> Void
-
-	fileprivate var targetedAction: (YapAnimator) -> Void = { _ in }
-
-	fileprivate var targetedCompletion: (YapAnimator, _ finished: Bool) -> Void = { _ in }
+	fileprivate var completion: (YapAnimator, _ finished: Bool) -> Void = { _ in }
 
 	fileprivate weak var observer: YapAnimatorObserver?
-
 
 	fileprivate var needsUpdate = false
 
@@ -170,27 +151,25 @@ public final class YapAnimator<T>: YapAnimatorCommonInterface where T: Animatabl
 			case .possible:
 				break
 			case .began:
-				willBegin(self)
+				if let willBegin = willBegin {
+					self.current.value = willBegin()
+					self.current.velocity = T.zero()
+				}
 			case .updated:
-				targetedAction(self)
-				action(self)
+				eachFrame(self)
 			case .completed:
-				// copy targeted completion to call on next run loop
-				let targetedCompletionCopy = self.targetedCompletion
-				targetedCompletion = { _ in }
-				targetedAction = { _ in }
+				// copy completion to call on next run loop
+				let completionCopy = self.completion
+				completion = { _ in }
 				DispatchQueue.main.async {
-					targetedCompletionCopy(self, true)
-					self.completion(self, true)
+					completionCopy(self, false)
 				}
 			case .cancelled:
-				// copy targeted completion to call on next run loop
-				let targetedCompletionCopy = self.targetedCompletion
-				targetedCompletion = { _ in }
-				targetedAction = { _ in }
+				// copy completion to call on next run loop
+				let completionCopy = self.completion
+				completion = { _ in }
 				DispatchQueue.main.async {
-					targetedCompletionCopy(self, false)
-					self.completion(self, false)
+					completionCopy(self, true)
 				}
 			}
 			observer?.didChangeState(animator: self)
@@ -206,7 +185,7 @@ extension YapAnimator {
 
 		if needsUpdate {
 			needsUpdate = update(dT: dT)
-			// Unlike the completion, the action can be called sync in the flow as it will
+			// Unlike the `completion`, `eachFrame` can be called sync in the flow as it will
 			// update `needsUpdate` before evaluating to stop execution. This is an important
 			// flow as you might change something in the animator that requires an update.
 			transition(to: .updated)
