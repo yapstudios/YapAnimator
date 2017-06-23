@@ -59,7 +59,7 @@ public final class YapAnimator<T>: YapAnimatorCommonInterface where T: Animatabl
 	/// - Parameter completion: This closure gets called when the animator comes to rest or is stopped otherwise. The `Bool` value passed into this closure will be `true` if the animator comes to rest at the `toValue` or `false` if the animator is stopped or a new `toValue` is set by calling this method again before the previous animation finishes.
 	/// - Parameter animator: The associated `YapAnimator`
 	/// - Parameter wasInterrupted: `false` if the animator comes to rest at the `toValue` or `true` if the animator is stopped for any other reason.
-	public func animate(to: T, completion: @escaping (_ animator: YapAnimator, _ wasInterrupted: Bool) -> Void = { _ in }) {
+	public func animate(to: T, completion: @escaping (_ animator: YapAnimator, _ wasInterrupted: Bool) -> Void = { _, _ in }) {
 		toValue = to
 		// copy completion to call on next run loop
 		let completionCopy = self.completion
@@ -127,7 +127,7 @@ public final class YapAnimator<T>: YapAnimatorCommonInterface where T: Animatabl
 
 	fileprivate var eachFrame: (YapAnimator) -> Void
 
-	fileprivate var completion: (YapAnimator, _ finished: Bool) -> Void = { _ in }
+	fileprivate var completion: (YapAnimator, _ finished: Bool) -> Void = { _, _ in }
 
 	fileprivate weak var observer: YapAnimatorObserver?
 
@@ -160,14 +160,14 @@ public final class YapAnimator<T>: YapAnimatorCommonInterface where T: Animatabl
 			case .completed:
 				// copy completion to call on next run loop
 				let completionCopy = self.completion
-				completion = { _ in }
+				completion = { _, _ in }
 				DispatchQueue.main.async {
 					completionCopy(self, false)
 				}
 			case .cancelled:
 				// copy completion to call on next run loop
 				let completionCopy = self.completion
-				completion = { _ in }
+				completion = { _, _ in }
 				DispatchQueue.main.async {
 					completionCopy(self, true)
 				}
@@ -409,7 +409,7 @@ fileprivate final class Engine: NSObject {
 		}
 	}
 
-	func step (with displayLink: CADisplayLink) {
+	@objc func step (with displayLink: CADisplayLink) {
 
 		for (idx, box) in animators.enumerated().reversed() {
 			if let animator = box.value {
