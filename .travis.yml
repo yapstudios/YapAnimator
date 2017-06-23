@@ -1,0 +1,13 @@
+language: objective-c
+osx_image: xcode8.3
+branches:
+  only:
+    - master
+
+before_install:
+  - gem update cocoapods
+before_script:
+  - export LANG=en_US.UTF-8
+script:
+  - pod install --repo-update
+  - xcodebuild -workspace YapAnimatorExample.xcworkspace -scheme YapAnimatorExample -sdk iphoneos10.3 -configuration Debug build | xcpretty;
