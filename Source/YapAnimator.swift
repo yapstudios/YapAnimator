@@ -62,12 +62,12 @@ public final class YapAnimator<T>: YapAnimatorCommonInterface where T: Animatabl
 	public func animate(to: T, completion: @escaping (_ animator: YapAnimator, _ wasInterrupted: Bool) -> Void = { _, _ in }) {
 
 		toValue = to
-		satisfyCompletion(withSuccess: false, newCompletion: completion)
+		fulfillCompletion(success: false, newCompletion: completion)
 	}
 
 	public func instant(to: T) {
 
-		satisfyCompletion(withSuccess: false)
+		fulfillCompletion(success: false)
 		needsUpdate = false
 		toValue = to
 		updateInstant()
@@ -161,9 +161,9 @@ public final class YapAnimator<T>: YapAnimatorCommonInterface where T: Animatabl
 			case .updated:
 				eachFrame(self)
 			case .completed:
-				satisfyCompletion(withSuccess: true)
+				fulfillCompletion(success: true)
 			case .cancelled:
-				satisfyCompletion(withSuccess: false)
+				fulfillCompletion(success: false)
 			}
 			observer?.didChangeState(animator: self)
 		}
@@ -233,7 +233,7 @@ extension YapAnimator {
 		return isInMotion
 	}
 
-	func satisfyCompletion(withSuccess success: Bool, newCompletion: @escaping (_ animator: YapAnimator, _ wasInterrupted: Bool) -> Void = { _, _ in }) {
+	func fulfillCompletion(success: Bool, newCompletion: @escaping (_ animator: YapAnimator, _ wasInterrupted: Bool) -> Void = { _, _ in }) {
 
 		let completionCopy = self.completion
 		completion = newCompletion
