@@ -200,7 +200,7 @@ extension YapAnimator {
 
 		// Sum forces
 		let springForces = bouncy(offset: current.value - toValue, tension: computedTension(), friction: computedFriction())
-		let otherForces = decay(forces: forces, resistance: 0)
+		let otherForces = decay(forces: forces, resistance: 0, dT: dT)
 		let combinedForces = { return springForces($0) + otherForces($0) }
 
 		// Integrate
@@ -316,11 +316,11 @@ fileprivate extension YapAnimator {
 		}
 	}
 
-	func decay(forces: T, resistance: Double) -> AccelerationFnType {
+	func decay(forces: T, resistance: Double, dT: CFTimeInterval) -> AccelerationFnType {
 
 		return { state in
 			T.composed(from: zip(forces.components, state.velocity.components)
-				.flatMap { $0.0 - $0.1 * resistance })
+				.flatMap { ($0.0 / dT) - $0.1 * resistance })
 		}
 	}
 
