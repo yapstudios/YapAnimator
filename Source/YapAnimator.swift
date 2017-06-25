@@ -60,14 +60,17 @@ public final class YapAnimator<T>: YapAnimatorCommonInterface where T: Animatabl
 	/// - Parameter animator: The associated `YapAnimator`
 	/// - Parameter wasInterrupted: `false` if the animator comes to rest at the `toValue` or `true` if the animator is stopped for any other reason.
 	public func animate(to: T, completion: @escaping (_ animator: YapAnimator, _ wasInterrupted: Bool) -> Void = { _, _ in }) {
+
 		toValue = to
-		// copy completion to call on next run loop
-		let completionCopy = self.completion
-		self.completion = completion
-		DispatchQueue.main.async {
-			// will cancel any in-flight completion
-			completionCopy(self, true)
-		}
+		satisfyCompletion(withSuccess: false, newCompletion: completion)
+	}
+
+	public func instant(to: T) {
+
+		satisfyCompletion(withSuccess: false)
+		needsUpdate = false
+		toValue = to
+		updateInstant()
 	}
 
 	// Animation Variables
@@ -158,19 +161,9 @@ public final class YapAnimator<T>: YapAnimatorCommonInterface where T: Animatabl
 			case .updated:
 				eachFrame(self)
 			case .completed:
-				// copy completion to call on next run loop
-				let completionCopy = self.completion
-				completion = { _, _ in }
-				DispatchQueue.main.async {
-					completionCopy(self, false)
-				}
+				satisfyCompletion(withSuccess: true)
 			case .cancelled:
-				// copy completion to call on next run loop
-				let completionCopy = self.completion
-				completion = { _, _ in }
-				DispatchQueue.main.async {
-					completionCopy(self, true)
-				}
+				satisfyCompletion(withSuccess: false)
 			}
 			observer?.didChangeState(animator: self)
 		}
@@ -197,6 +190,10 @@ extension YapAnimator {
 		}
 
 		return needsUpdate
+	}
+
+	fileprivate func updateInstant() {
+		current = PhysicsState(value: toValue, velocity: T.zero())
 	}
 
 	@discardableResult private func update(dT: CFTimeInterval) -> Bool {
@@ -234,6 +231,15 @@ extension YapAnimator {
 			}
 		}
 		return isInMotion
+	}
+
+	func satisfyCompletion(withSuccess success: Bool, newCompletion: @escaping (_ animator: YapAnimator, _ wasInterrupted: Bool) -> Void = { _, _ in }) {
+
+		let completionCopy = self.completion
+		completion = newCompletion
+		DispatchQueue.main.async {
+			completionCopy(self, success ? false : true)
+		}
 	}
 
 	fileprivate func stopExecution() {
