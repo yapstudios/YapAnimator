@@ -6,7 +6,7 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   YapAnimator:
-    :path: "./"
+    :path: ./
 
 SPEC CHECKSUMS:
   YapAnimator: 15958dd341fb04c3907021047f647626948d672e
