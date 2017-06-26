@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version      = "1.1.0"
   s.summary      = "Yap Studios Animation Framework"
   s.homepage     = "http://yapstudios.com/"
-  s.license      = 'MIT'
+  s.license      = "BSD"
 
 	s.author       = {
 		"Yap Studios" => "contact@yapstudios.com"
