@@ -1,6 +1,6 @@
-![YapAnimatorLogo](https://yapstudios.com/githubresources/yapanimator/header.gif)
+![YapAnimatorLogo](Docs/header.gif)
 
-**YapAnimator** is your fast and friendly physics-based animation system. YapAnimator was built with ease-of-use in mind, keeping *you* sane and your designer very, *very* happy. All animations are interruptable, include completion blocks, and allow you to apply forces to them (e.g. adding the velocity from a gesture in a transition). I've included `Animatable` protocol conformance for some commonly animated types (`CG` types), but it's really easy to add conformance to any other type. **You can animate anything** that you can represent and compose with an array of `Double`s — view properties, music volume, morphing between bezier paths, colors, smoothing brush strokes, the list goes on… use your imagination!
+**YapAnimator** is your fast and friendly physics-based animation system. YapAnimator was built with ease-of-use in mind, keeping *you* sane and your designer very, *very* happy. All animations are interruptable, include completion blocks, and allow you to apply forces to them (e.g. adding the velocity from a gesture in a transition). We've included `Animatable` protocol conformance for some commonly animated types (`CG` types), but it's really easy to add conformance to any other type. **You can animate anything** that you can represent and compose with an array of `Double`s — view properties, music volume, morphing between bezier paths, colors, smoothing brush strokes, the list goes on… use your imagination!
 
 [![Build Status](https://travis-ci.org/yapstudios/YapAnimator.svg?branch=master)](https://travis-ci.org/yapstudios/YapAnimator)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/YapAnimator.svg)](https://img.shields.io/cocoapods/v/YapAnimator.svg)
@@ -8,13 +8,13 @@
 
 ## Why use YapAnimator?
 
-Because it's insanely easy to use and makes beautiful animations, that's why. There are other physics-based animation systems out there (e.g. UIKit's spring animations, Facebook's Pop), but they still require writing too much code, bookkeeping, and hand-holding for my taste. YapAnimator represents a distilled n-th iteration of code that I've been using in my own apps for 8+ years. I find it invaluable in my day-to-day and think that you will too.
+Because it's insanely easy to use and makes beautiful animations, that's why. There are other physics-based animation systems out there (e.g. UIKit's spring animations, Facebook's Pop), but they still require writing too much code, bookkeeping, and hand-holding for our taste. YapAnimator represents a distilled n-th iteration of code that we've been using in our own apps for years. We find it invaluable in our day-to-day and think that you will too.
 
 ## Built-in Extensions
 
 YapAnimator comes with a handy extension bolted on to `CALayer` and `UIView`, providing one-liner animations under the `animatedLayer` and `animated` properties, respectively.
 
-![CircleAnimationExample](https://yapstudios.com/githubresources/yapanimator/squirclemorph.gif)
+![CircleAnimationExample](Docs/squirclemorph.gif)
 
 ```swift
 func handle(gesture: UIPanGestureRecognizer) {
@@ -48,7 +48,7 @@ frameAnimator = YapAnimator(initialValue: square.frame, willBegin: { [unowned se
 })
 ```
 
-![SquareFrameExample](https://yapstudios.com/githubresources/yapanimator/squareframe.gif)
+![SquareFrameExample](Docs/squareframe.gif)
 
 ```swift
 frameAnimator.bounciness = 1.5
@@ -63,4 +63,4 @@ frameAnimator.animate(to: square.frame.insetBy(dx: -50, dy: -50), completion: { 
 
 ## Questions?
 
-Feel free to [ask your question in an issue](https://github.com/yapstudios/YapAnimator/issues/new). I'll respond there, and  amend this read me/start a wiki if the answer seems like it would benefit others 🖖.
+Feel free to [ask your question in an issue](https://github.com/yapstudios/YapAnimator/issues/new). We will respond there, and  amend this read me/start a wiki if the answer seems like it would benefit others.
