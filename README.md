@@ -38,7 +38,7 @@ Creating a custom animator is straightforward:
 
 - `initialValue` This sets the initial value of the animator and informs it what type it will be animating.
 - `willBegin` Called just before motion starts. Return the actual value of the property that you'll be animating. This allows the animator to sync up with that value in case it was changed outside of the scope of the animator. *(optional)*
-- `eachFrame` Called each frame of the animation — this is typically where you'd apply the animator's `current.value` to the property that you're animating. I'll also use it to check values to trigger other actions / animations.
+- `eachFrame` Called each frame of the animation — this is typically where you'd apply the animator's `current.value` to the property that you're animating. You can also use it to check values to trigger other actions / animations.
 
 ```swift
 frameAnimator = YapAnimator(initialValue: square.frame, willBegin: { [unowned self] in
@@ -64,3 +64,7 @@ frameAnimator.animate(to: square.frame.insetBy(dx: -50, dy: -50), completion: { 
 ## Questions?
 
 Feel free to [ask your question in an issue](https://github.com/yapstudios/YapAnimator/issues/new). We will respond there, and  amend this read me/start a wiki if the answer seems like it would benefit others.
+
+## Credits
+
+YapImageManager is owned and maintained by [Yap Studios](http://www.yapstudios.com).
