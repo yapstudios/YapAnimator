@@ -390,19 +390,30 @@ fileprivate final class Engine: NSObject {
 
 	static let sharedInstance = Engine()
 
+    #if os(iOS) || os(tvOS)
 	lazy var displayLink: CADisplayLink = CADisplayLink(target: self, selector: #selector(Engine.step))
-
+    #elseif os(macOS)
+    var displayLink: CVDisplayLink?
+    var previousOutputVideoTime: Int64 = 0
+    #endif
+    
 	var animators = [YapAnimatorBox]()
 
 	override init() {
 		super.init()
 
+        #if os(iOS) || os(tvOS)
 		displayLink.add(to: .current, forMode: .commonModes)
+        #elseif os(macOS)
+        CVDisplayLinkCreateWithActiveCGDisplays(&displayLink)
+        if let displayLink = displayLink {
+            CVDisplayLinkSetOutputHandler(displayLink, step(with:inNow:inOutputTime:flagsIn:flagsOut:))
+        }
+        #endif
 	}
 
 	func add(animator: YapAnimatorCommonInterface) {
-
-		displayLink.isPaused = false
+        pauseDisplayLink(false)
 		self.animators.append(YapAnimatorBox(value: animator))
 	}
 
@@ -415,6 +426,7 @@ fileprivate final class Engine: NSObject {
 		}
 	}
 
+    #if os(iOS) || os(tvOS)
 	@objc func step (with displayLink: CADisplayLink) {
 
 		for (idx, box) in animators.enumerated().reversed() {
@@ -426,9 +438,45 @@ fileprivate final class Engine: NSObject {
 		}
 
 		if animators.isEmpty {
-			displayLink.isPaused = true
+            pauseDisplayLink(true)
 		}
 	}
+    
+    func pauseDisplayLink(_ paused: Bool) {
+        displayLink.isPaused = false
+    }
+    #elseif os(macOS)
+    @objc func step (with displayLink: CVDisplayLink, inNow: UnsafePointer<CVTimeStamp>, inOutputTime: UnsafePointer<CVTimeStamp>, flagsIn: CVOptionFlags, flagsOut: UnsafeMutablePointer<CVOptionFlags>) -> CVReturn {
+        for (idx, box) in animators.enumerated().reversed() {
+            if let animator = box.value {
+                let deltaSeconds: Double = (previousOutputVideoTime == 0) ? 0 : Double(inOutputTime.pointee.videoTime - previousOutputVideoTime) / Double(inOutputTime.pointee.videoTimeScale)
+                
+                animator.updateIfNeeded(dT: deltaSeconds)
+            } else {
+                animators.remove(at: idx)
+            }
+        }
+        
+        previousOutputVideoTime = inOutputTime.pointee.videoTime
+        
+        if animators.isEmpty {
+            CVDisplayLinkStop(displayLink)
+            previousOutputVideoTime = 0
+        }
+        
+        return kCVReturnSuccess
+    }
+    
+    func pauseDisplayLink(_ pause: Bool) {
+        guard let displayLink = displayLink else {return}
+        
+        if pause {
+            CVDisplayLinkStop(displayLink)
+        } else {
+            CVDisplayLinkStart(displayLink)
+        }
+    }
+    #endif
 }
 
 extension Engine: YapAnimatorObserver {

@@ -1,5 +1,5 @@
 PODS:
-  - YapAnimator (1.0.0)
+  - YapAnimator (1.1.0)
 
 DEPENDENCIES:
   - YapAnimator (from `./`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: ./
 
 SPEC CHECKSUMS:
-  YapAnimator: 15958dd341fb04c3907021047f647626948d672e
+  YapAnimator: 303fa823c314b6fb7c98054b616db73b16d10a79
 
-PODFILE CHECKSUM: be1261c6046c2c8d19c737a14b06953c35cd92f5
+PODFILE CHECKSUM: 4b43b464a83ba6b588c792437cf4b87fe075ded6
 
 COCOAPODS: 1.2.1

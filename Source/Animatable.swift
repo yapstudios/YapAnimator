@@ -32,7 +32,15 @@ send an email to me if you have any questions.
 
 import Foundation
 
+#if os(iOS) || os(tvOS)
 import UIKit
+    
+public typealias OSColor = UIColor
+#elseif os(macOS)
+import Cocoa
+    
+public typealias OSColor = NSColor
+#endif
 
 /// Conforming Types are animatable using `YapAnimator`
 public protocol Animatable {
@@ -162,11 +170,15 @@ extension CGVector: Animatable {
 	}
 }
 
-extension UIColor: Animatable {
+extension OSColor: Animatable {
 
   public static func composed(from elements: [Double]) -> Self {
-		let color = UIColor(red: CGFloat(elements[0]), green: CGFloat(elements[1]), blue: CGFloat(elements[2]), alpha: CGFloat(elements[3]))
+		let color = OSColor(red: CGFloat(elements[0]), green: CGFloat(elements[1]), blue: CGFloat(elements[2]), alpha: CGFloat(elements[3]))
+    #if os(iOS) || os(tvOS)
     return self.init(cgColor: color.cgColor)
+    #elseif os(macOS)
+    return self.init(cgColor: color.cgColor) ?? self.init()
+    #endif
   }
 
   public var components: [Double] {

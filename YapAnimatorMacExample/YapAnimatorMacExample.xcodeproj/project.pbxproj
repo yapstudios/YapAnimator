@@ -1,0 +1,372 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		36EE446C1F0580A400BC58D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EE446B1F0580A400BC58D2 /* AppDelegate.swift */; };
+		36EE446E1F0580A400BC58D2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EE446D1F0580A400BC58D2 /* ViewController.swift */; };
+		36EE44701F0580A400BC58D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36EE446F1F0580A400BC58D2 /* Assets.xcassets */; };
+		36EE44731F0580A400BC58D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36EE44711F0580A400BC58D2 /* Main.storyboard */; };
+		A5C664EBEC68F127A7E3D737 /* Pods_YapAnimatorMacExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB94C0ED6B20F4F5DE8310F0 /* Pods_YapAnimatorMacExample.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		36EE44681F0580A400BC58D2 /* YapAnimatorMacExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YapAnimatorMacExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		36EE446B1F0580A400BC58D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		36EE446D1F0580A400BC58D2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		36EE446F1F0580A400BC58D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		36EE44721F0580A400BC58D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		36EE44741F0580A400BC58D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		52D42E3C2736DF93F93A50B4 /* Pods-YapAnimatorMacExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YapAnimatorMacExample.release.xcconfig"; path = "../Pods/Target Support Files/Pods-YapAnimatorMacExample/Pods-YapAnimatorMacExample.release.xcconfig"; sourceTree = "<group>"; };
+		B618ACB67F306513F73CB379 /* Pods-YapAnimatorMacExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YapAnimatorMacExample.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-YapAnimatorMacExample/Pods-YapAnimatorMacExample.debug.xcconfig"; sourceTree = "<group>"; };
+		CB94C0ED6B20F4F5DE8310F0 /* Pods_YapAnimatorMacExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YapAnimatorMacExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		36EE44651F0580A400BC58D2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5C664EBEC68F127A7E3D737 /* Pods_YapAnimatorMacExample.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1D4AEEAB25C438434DBE53D0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CB94C0ED6B20F4F5DE8310F0 /* Pods_YapAnimatorMacExample.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		36EE445F1F0580A400BC58D2 = {
+			isa = PBXGroup;
+			children = (
+				36EE446A1F0580A400BC58D2 /* YapAnimatorMacExample */,
+				36EE44691F0580A400BC58D2 /* Products */,
+				606DCEDA12276388AF4184BB /* Pods */,
+				1D4AEEAB25C438434DBE53D0 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		36EE44691F0580A400BC58D2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				36EE44681F0580A400BC58D2 /* YapAnimatorMacExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		36EE446A1F0580A400BC58D2 /* YapAnimatorMacExample */ = {
+			isa = PBXGroup;
+			children = (
+				36EE446B1F0580A400BC58D2 /* AppDelegate.swift */,
+				36EE446D1F0580A400BC58D2 /* ViewController.swift */,
+				36EE446F1F0580A400BC58D2 /* Assets.xcassets */,
+				36EE44711F0580A400BC58D2 /* Main.storyboard */,
+				36EE44741F0580A400BC58D2 /* Info.plist */,
+			);
+			path = YapAnimatorMacExample;
+			sourceTree = "<group>";
+		};
+		606DCEDA12276388AF4184BB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B618ACB67F306513F73CB379 /* Pods-YapAnimatorMacExample.debug.xcconfig */,
+				52D42E3C2736DF93F93A50B4 /* Pods-YapAnimatorMacExample.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		36EE44671F0580A400BC58D2 /* YapAnimatorMacExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 36EE44771F0580A400BC58D2 /* Build configuration list for PBXNativeTarget "YapAnimatorMacExample" */;
+			buildPhases = (
+				67D487DC79A98A400A1571A7 /* [CP] Check Pods Manifest.lock */,
+				36EE44641F0580A400BC58D2 /* Sources */,
+				36EE44651F0580A400BC58D2 /* Frameworks */,
+				36EE44661F0580A400BC58D2 /* Resources */,
+				581ED22E2EC06282E2BFC004 /* [CP] Embed Pods Frameworks */,
+				999CF4430FFADCDD1A6983B1 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = YapAnimatorMacExample;
+			productName = YapAnimatorMacExample;
+			productReference = 36EE44681F0580A400BC58D2 /* YapAnimatorMacExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		36EE44601F0580A400BC58D2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Sam Gray";
+				TargetAttributes = {
+					36EE44671F0580A400BC58D2 = {
+						CreatedOnToolsVersion = 8.3.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 36EE44631F0580A400BC58D2 /* Build configuration list for PBXProject "YapAnimatorMacExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 36EE445F1F0580A400BC58D2;
+			productRefGroup = 36EE44691F0580A400BC58D2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				36EE44671F0580A400BC58D2 /* YapAnimatorMacExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		36EE44661F0580A400BC58D2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				36EE44701F0580A400BC58D2 /* Assets.xcassets in Resources */,
+				36EE44731F0580A400BC58D2 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		581ED22E2EC06282E2BFC004 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-YapAnimatorMacExample/Pods-YapAnimatorMacExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		67D487DC79A98A400A1571A7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		999CF4430FFADCDD1A6983B1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-YapAnimatorMacExample/Pods-YapAnimatorMacExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		36EE44641F0580A400BC58D2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				36EE446E1F0580A400BC58D2 /* ViewController.swift in Sources */,
+				36EE446C1F0580A400BC58D2 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		36EE44711F0580A400BC58D2 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				36EE44721F0580A400BC58D2 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		36EE44751F0580A400BC58D2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		36EE44761F0580A400BC58D2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+			};
+			name = Release;
+		};
+		36EE44781F0580A400BC58D2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B618ACB67F306513F73CB379 /* Pods-YapAnimatorMacExample.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = YapAnimatorMacExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.samgrayapps.YapAnimatorMacExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		36EE44791F0580A400BC58D2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 52D42E3C2736DF93F93A50B4 /* Pods-YapAnimatorMacExample.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = YapAnimatorMacExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.samgrayapps.YapAnimatorMacExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		36EE44631F0580A400BC58D2 /* Build configuration list for PBXProject "YapAnimatorMacExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				36EE44751F0580A400BC58D2 /* Debug */,
+				36EE44761F0580A400BC58D2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		36EE44771F0580A400BC58D2 /* Build configuration list for PBXNativeTarget "YapAnimatorMacExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				36EE44781F0580A400BC58D2 /* Debug */,
+				36EE44791F0580A400BC58D2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 36EE44601F0580A400BC58D2 /* Project object */;
+}
