@@ -67,4 +67,4 @@ Feel free to [ask your question in an issue](https://github.com/yapstudios/YapAn
 
 ## Credits
 
-YapImageManager is owned and maintained by [Yap Studios](http://www.yapstudios.com).
+YapAnimator is owned and maintained by [Yap Studios](http://www.yapstudios.com).
