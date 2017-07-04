@@ -32,8 +32,13 @@ send an email to me if you have any questions.
 
 import Foundation
 
+#if os(iOS) || os(tvOS)
 import UIKit
+#elseif os(macOS)
+import Cocoa
+#endif
 
+#if os(iOS) || os(tvOS)
 extension UIView {
 
 	/// Returns an phsyics-based implicitly animatable version of the layer
@@ -41,6 +46,14 @@ extension UIView {
 		return self.layer.animatedLayer
 	}
 }
+    #elseif os(macOS)
+extension NSView {
+    /// Returns an phsyics-based implicitly animatable version of the layer
+    public var animated: YapAnimatedLayer {
+        return self.layer!.animatedLayer
+    }
+}
+#endif
 
 extension CALayer {
 
@@ -83,7 +96,7 @@ public class YapAnimatedLayer {
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.bounds = animator.current.value
+        self.setDelegateValue(animator.current.value, forKeyPath: "bounds")
 	})
 
 	public lazy var position: YapAnimator<CGPoint> = YapAnimator(initialValue: self.delegate!.position, willBegin: { [unowned self] in
@@ -92,7 +105,7 @@ public class YapAnimatedLayer {
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.position = animator.current.value
+        self.setDelegateValue(animator.current.value, forKeyPath: "position")
 	})
 
 	public lazy var zPosition: YapAnimator<CGFloat> = YapAnimator(initialValue: self.delegate!.zPosition, willBegin: { [unowned self] in
@@ -101,7 +114,7 @@ public class YapAnimatedLayer {
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.zPosition = animator.current.value
+        self.setDelegateValue(animator.current.value, forKeyPath: "zPosition")
 	})
 
 	public lazy var anchorPoint: YapAnimator<CGPoint> = YapAnimator(initialValue: self.delegate!.anchorPoint, willBegin: { [unowned self] in
@@ -110,7 +123,7 @@ public class YapAnimatedLayer {
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.anchorPoint = animator.current.value
+        self.setDelegateValue(animator.current.value, forKeyPath: "anchorPoint")
 	})
 
 	public lazy var anchorPointZ: YapAnimator<CGFloat> = YapAnimator(initialValue: self.delegate!.anchorPointZ, willBegin: { [unowned self] in
@@ -119,7 +132,7 @@ public class YapAnimatedLayer {
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.anchorPointZ = animator.current.value
+        self.setDelegateValue(animator.current.value, forKeyPath: "anchorPointZ")
 	})
 
 	public lazy var transform: YapAnimator<CATransform3D> = YapAnimator(initialValue: self.delegate!.transform, willBegin: { [unowned self] in
@@ -128,7 +141,7 @@ public class YapAnimatedLayer {
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.transform = animator.current.value
+        self.setDelegateValue(animator.current.value, forKeyPath: "transform")
 	})
 
 	public lazy var translation: YapAnimator<CGPoint> = YapAnimator(initialValue: CGPoint.zero, willBegin: { [unowned self] in
@@ -137,7 +150,7 @@ public class YapAnimatedLayer {
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.setValue(animator.current.value, forKeyPath: "transform.translation")
+        self.setDelegateValue(animator.current.value, forKeyPath: "transform.translation")
 	})
 
 	public lazy var rotationZ: YapAnimator<CGFloat> = YapAnimator(initialValue: 0, willBegin: { [unowned self] in
@@ -146,7 +159,7 @@ public class YapAnimatedLayer {
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.setValue(animator.current.value, forKeyPath: "transform.rotation")
+        self.setDelegateValue(animator.current.value, forKeyPath: "transform.rotation")
 	})
 
 	public lazy var scale: YapAnimator<CGFloat> = YapAnimator(initialValue: 0, willBegin: { [unowned self] in
@@ -155,7 +168,7 @@ public class YapAnimatedLayer {
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.setValue(animator.current.value, forKeyPath: "transform.scale")
+        self.setDelegateValue(animator.current.value, forKeyPath: "transform.scale")
 	})
 
 	public lazy var frame: YapAnimator<CGRect> = YapAnimator(initialValue: self.delegate!.frame, willBegin: { [unowned self] in
@@ -164,7 +177,7 @@ public class YapAnimatedLayer {
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.frame = animator.current.value
+		self.setDelegateValue(animator.current.value, forKeyPath: "frame")
 	})
 
 	public lazy var sublayerTransform: YapAnimator<CATransform3D> = YapAnimator(initialValue: self.delegate!.sublayerTransform, willBegin: { [unowned self] in
@@ -173,7 +186,7 @@ public class YapAnimatedLayer {
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.sublayerTransform = animator.current.value
+		self.setDelegateValue(animator.current.value, forKeyPath: "sublayerTransform")
 	})
 
 	public lazy var contentsRect: YapAnimator<CGRect> = YapAnimator(initialValue: self.delegate!.contentsRect, willBegin: { [unowned self] in
@@ -182,7 +195,7 @@ public class YapAnimatedLayer {
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.contentsRect = animator.current.value
+		self.setDelegateValue(animator.current.value, forKeyPath: "contentsRect")
 	})
 
 	public lazy var contentsScale: YapAnimator<CGFloat> = YapAnimator(initialValue: self.delegate!.contentsScale, willBegin: { [unowned self] in
@@ -191,7 +204,7 @@ public class YapAnimatedLayer {
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.contentsScale = animator.current.value
+        self.setDelegateValue(animator.current.value, forKeyPath: "contentsScale")
 	})
 
 	public lazy var contentsCenter: YapAnimator<CGRect> = YapAnimator(initialValue: self.delegate!.contentsCenter, willBegin: { [unowned self] in
@@ -200,7 +213,7 @@ public class YapAnimatedLayer {
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.contentsCenter = animator.current.value
+        self.setDelegateValue(animator.current.value, forKeyPath: "contentsCenter")
 	})
 
 	public lazy var minificationFilterBias: YapAnimator<Float> = YapAnimator(initialValue: self.delegate!.minificationFilterBias, willBegin: { [unowned self] in
@@ -209,16 +222,16 @@ public class YapAnimatedLayer {
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.minificationFilterBias = animator.current.value
+        self.setDelegateValue(animator.current.value, forKeyPath: "minificationFilterBias")
 	})
 
-	public lazy var backgroundColor: YapAnimator<UIColor> = YapAnimator(initialValue: self.unwrappedColorOrDefault(from: self.delegate?.backgroundColor), willBegin: { [unowned self] in
+	public lazy var backgroundColor: YapAnimator<OSColor> = YapAnimator(initialValue: self.unwrappedColorOrDefault(from: self.delegate?.backgroundColor), willBegin: { [unowned self] in
 		self.unwrappedColorOrDefault(from: self.delegate?.backgroundColor)
 	}, eachFrame: { [unowned self] animator in
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.backgroundColor = animator.current.value.cgColor
+        self.setDelegateValue(animator.current.value.cgColor, forKeyPath: "backgroundColor")
 	})
 
 	public lazy var cornerRadius: YapAnimator<CGFloat> = YapAnimator(initialValue: self.delegate!.cornerRadius, willBegin: { [unowned self] in
@@ -227,7 +240,7 @@ public class YapAnimatedLayer {
 		guard self.self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.cornerRadius = animator.current.value
+        self.setDelegateValue(animator.current.value, forKeyPath: "cornerRadius")
 	})
 
 	public lazy var borderWidth: YapAnimator<CGFloat> = YapAnimator(initialValue: self.delegate!.borderWidth, willBegin: { [unowned self] in
@@ -236,16 +249,16 @@ public class YapAnimatedLayer {
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.borderWidth = animator.current.value
+		self.setDelegateValue(animator.current.value, forKeyPath: "borderWidth")
 	})
 
-	public lazy var borderColor: YapAnimator<UIColor> = YapAnimator(initialValue: self.unwrappedColorOrDefault(from: self.delegate?.borderColor), willBegin: { [unowned self] in
+	public lazy var borderColor: YapAnimator<OSColor> = YapAnimator(initialValue: self.unwrappedColorOrDefault(from: self.delegate?.borderColor), willBegin: { [unowned self] in
 		self.unwrappedColorOrDefault(from: self.delegate?.borderColor)
 	}, eachFrame: { [unowned self] animator in
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.borderColor = animator.current.value.cgColor
+		self.setDelegateValue(animator.current.value, forKeyPath: "borderColor")
 	})
 
 	public lazy var opacity: YapAnimator<Float> = YapAnimator(initialValue: self.delegate!.opacity, willBegin: { [unowned self] in
@@ -254,7 +267,7 @@ public class YapAnimatedLayer {
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.opacity = animator.current.value
+		self.setDelegateValue(animator.current.value, forKeyPath: "opacity")
 	})
 
 	public lazy var rasterizationScale: YapAnimator<CGFloat> = YapAnimator(initialValue: self.delegate!.rasterizationScale, willBegin: { [unowned self] in
@@ -263,16 +276,16 @@ public class YapAnimatedLayer {
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.rasterizationScale = animator.current.value
+		self.setDelegateValue(animator.current.value, forKeyPath: "rasterizationScale")
 	})
 
-	public lazy var shadowColor: YapAnimator<UIColor> = YapAnimator(initialValue: self.unwrappedColorOrDefault(from: self.delegate?.shadowColor), willBegin: { [unowned self] in
+	public lazy var shadowColor: YapAnimator<OSColor> = YapAnimator(initialValue: self.unwrappedColorOrDefault(from: self.delegate?.shadowColor), willBegin: { [unowned self] in
 		self.unwrappedColorOrDefault(from: self.delegate?.shadowColor)
 	}, eachFrame: { [unowned self] animator in
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.shadowColor = animator.current.value.cgColor
+		self.setDelegateValue(animator.current.value.cgColor, forKeyPath: "shadowColor")
 	})
 
 	public lazy var shadowOpacity: YapAnimator<Float> = YapAnimator(initialValue: self.delegate!.shadowOpacity, willBegin: { [unowned self] in
@@ -281,7 +294,7 @@ public class YapAnimatedLayer {
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-			self.delegate?.shadowOpacity = animator.current.value
+		self.setDelegateValue(animator.current.value, forKeyPath: "shadowOpacity")
 	})
 
 	public lazy var shadowOffset: YapAnimator<CGSize> = YapAnimator(initialValue: self.delegate!.shadowOffset, willBegin: { [unowned self] in
@@ -290,7 +303,7 @@ public class YapAnimatedLayer {
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.shadowOffset = animator.current.value
+		self.setDelegateValue(animator.current.value, forKeyPath: "shadowOffset")
 	})
 
 	public lazy var shadowRadius: YapAnimator<CGFloat> = YapAnimator(initialValue: self.delegate!.shadowRadius, willBegin: { [unowned self] in
@@ -299,10 +312,25 @@ public class YapAnimatedLayer {
 		guard self.verify(value: animator.current.value) else { return }
 		animator.speed = self.speed
 		animator.bounciness = self.bounciness
-		self.delegate?.shadowRadius = animator.current.value
+		self.setDelegateValue(animator.current.value, forKeyPath: "shadowRadius")
 	})
 
 	// MARK: - Helpers
+    #if os(iOS) || os(tvOS)
+    private func setDelegateValue(_ value: Any?, forKeyPath keyPath: String) {
+        guard let delegate = delegate else {return}
+        
+        delegate.setValue(value, forKeyPath: keyPath)
+    }
+    #elseif os(macOS)
+    private func setDelegateValue(_ value: Any?, forKeyPath keyPath: String) {
+        guard let delegate = delegate else {return}
+        
+        DispatchQueue.main.async {
+            delegate.setValue(value, forKeyPath: keyPath)
+        }
+    }
+    #endif
 
 	private func verify(value: Animatable) -> Bool {
 		var isValid = true
@@ -315,10 +343,14 @@ public class YapAnimatedLayer {
 		return isValid
 	}
 
-	private func unwrappedColorOrDefault(from color: CGColor?) -> UIColor {
+	private func unwrappedColorOrDefault(from color: CGColor?) -> OSColor {
 		if let color = color {
-			return UIColor(cgColor: color)
+            #if os(iOS) || os(tvOS)
+			return OSColor(cgColor: color)
+            #elseif os(macOS)
+            return OSColor(cgColor: color) ?? OSColor.clear
+            #endif
 		}
-		return UIColor.clear
+		return OSColor.clear
 	}
 }
