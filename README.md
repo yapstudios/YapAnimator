@@ -12,7 +12,7 @@ Because it's insanely easy to use and makes beautiful animations, that's why. Th
 
 ## Built-in Extensions
 
-YapAnimator comes with a handy extension bolted on to `CALayer` and `UIView`, providing one-liner animations under the `animatedLayer` and `animated` properties, respectively.
+YapAnimator comes with a handy extension bolted on to `CALayer` and `UIView`/`NSView`, providing one-liner animations under the `animatedLayer` and `animated` properties, respectively.
 
 ![CircleAnimationExample](Docs/squirclemorph.gif)
 
