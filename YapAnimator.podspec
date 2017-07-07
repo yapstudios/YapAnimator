@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "YapAnimator"
-  s.version      = "1.1.0"
+  s.version      = "1.2.0"
   s.summary      = "Yap Studios Animation Framework"
   s.homepage     = "http://yapstudios.com/"
   s.license      = "BSD"
@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '9.0'
   s.tvos.deployment_target = '10.0'
-	s.osx.deployment_target = '10.9'
+  s.osx.deployment_target = '10.9'
 
   s.source_files = 'Source/*.{swift}'
 end
