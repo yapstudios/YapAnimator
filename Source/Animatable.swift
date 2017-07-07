@@ -32,7 +32,7 @@ send an email to me if you have any questions.
 
 import Foundation
 
-import UIKit
+import QuartzCore
 
 /// Conforming Types are animatable using `YapAnimator`
 public protocol Animatable {
@@ -162,32 +162,6 @@ extension CGVector: Animatable {
 	}
 }
 
-extension UIColor: Animatable {
-
-  public static func composed(from elements: [Double]) -> Self {
-		let color = UIColor(red: CGFloat(elements[0]), green: CGFloat(elements[1]), blue: CGFloat(elements[2]), alpha: CGFloat(elements[3]))
-    return self.init(cgColor: color.cgColor)
-  }
-
-  public var components: [Double] {
-    var r = CGFloat(0.0)
-    var g = CGFloat(0.0)
-    var b = CGFloat(0.0)
-    var a = CGFloat(0.0)
-
-    getRed(&r, green: &g, blue: &b, alpha: &a)
-    return [Double(r), Double(g), Double(b), Double(a)]
-  }
-
-	public static func zero() -> Self {
-		return self.composed(from: Array<Double>(repeating: 0, count: count))
-	}
-
-	public static var count: Int {
-		return 4
-	}
-}
-
 extension CATransform3D: Animatable {
 
   public static func composed(from elements: [Double]) -> CATransform3D {
@@ -212,3 +186,70 @@ extension CATransform3D: Animatable {
 		return 16
 	}
 }
+
+// MARK: - iOS
+
+#if os(iOS) || os(tvOS)
+
+	extension UIColor: Animatable {
+
+		public static func composed(from elements: [Double]) -> Self {
+			let color = UIColor(red: CGFloat(elements[0]), green: CGFloat(elements[1]), blue: CGFloat(elements[2]), alpha: CGFloat(elements[3]))
+			return self.init(cgColor: color.cgColor)
+		}
+
+		public var components: [Double] {
+			var r = CGFloat(0.0)
+			var g = CGFloat(0.0)
+			var b = CGFloat(0.0)
+			var a = CGFloat(0.0)
+
+			getRed(&r, green: &g, blue: &b, alpha: &a)
+			return [Double(r), Double(g), Double(b), Double(a)]
+		}
+
+		public static func zero() -> Self {
+			return self.composed(from: Array<Double>(repeating: 0, count: count))
+		}
+
+		public static var count: Int {
+			return 4
+		}
+	}
+
+#endif
+
+
+// MARK: - macOS
+
+#if os(macOS)
+
+	extension NSColor: Animatable {
+
+		public static func composed(from elements: [Double]) -> Self {
+			let color = NSColor(red: CGFloat(elements[0]), green: CGFloat(elements[1]), blue: CGFloat(elements[2]), alpha: CGFloat(elements[3]))
+			return self.init(cgColor: color.cgColor) ?? self.init()
+		}
+
+		public var components: [Double] {
+
+			guard let ci = CIColor(color: self) else { return Array<Double>(repeating: 0, count: type(of:self).count) }
+
+			return [
+				Double(ci.red),
+				Double(ci.green),
+				Double(ci.blue),
+				Double(ci.alpha)
+			]
+		}
+
+		public static func zero() -> Self {
+			return self.composed(from: Array<Double>(repeating: 0, count: count))
+		}
+
+		public static var count: Int {
+			return 4
+		}
+	}
+
+#endif

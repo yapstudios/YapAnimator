@@ -386,23 +386,101 @@ fileprivate final class YapAnimatorBox {
 	}
 }
 
+fileprivate final class DisplayLink: NSObject {
+
+	#if os(macOS)
+
+	var displayLink: CVDisplayLink?
+
+	var lastOutputType: Int64 = 0
+
+	#elseif os(iOS) || os(tvOS)
+
+	var displayLink: CADisplayLink?
+
+	#endif
+
+	var paused: Bool = true {
+		didSet {
+			if paused {
+				#if os(macOS)
+					if let displayLink = displayLink {
+						CVDisplayLinkStop(displayLink)
+					}
+				#elseif os(iOS) || os(tvOS)
+					displayLink?.isPaused = true
+				#endif
+			} else {
+				#if os(macOS)
+					if let displayLink = displayLink {
+						CVDisplayLinkStart(displayLink)
+					}
+				#elseif os(iOS) || os(tvOS)
+					displayLink?.isPaused = false
+				#endif
+			}
+		}
+	}
+
+	var duration: CFTimeInterval = 0
+
+	var step: (DisplayLink) -> Void
+
+	init(step: @escaping (DisplayLink) -> Void) {
+
+		self.step = step
+		super.init()
+
+		#if os(macOS)
+
+			CVDisplayLinkCreateWithActiveCGDisplays(&displayLink)
+			if let displayLink = displayLink {
+				CVDisplayLinkSetOutputHandler(displayLink, step(with:now:outputTime:flagsIn:flagsOut:))
+			}
+
+		#elseif os(iOS) || os(tvOS)
+
+			displayLink = CADisplayLink(target: self, selector: #selector(step(with:)))
+			displayLink?.add(to: .current, forMode: .commonModes)
+
+		#endif
+	}
+
+	#if os(macOS)
+
+	@objc func step (with displayLink: CVDisplayLink, now: UnsafePointer<CVTimeStamp>, outputTime: UnsafePointer<CVTimeStamp>, flagsIn: CVOptionFlags, flagsOut: UnsafeMutablePointer<CVOptionFlags>) -> CVReturn {
+
+		duration = CVDisplayLinkGetActualOutputVideoRefreshPeriod(displayLink)
+		DispatchQueue.main.async {
+			self.step(self)
+		}
+		return kCVReturnSuccess
+	}
+
+	#elseif os(iOS) || os(tvOS)
+
+	@objc func step (with displayLink: CADisplayLink) {
+
+		duration = displayLink.duration
+		self.step(self)
+	}
+
+	#endif
+}
+
 fileprivate final class Engine: NSObject {
 
 	static let sharedInstance = Engine()
 
-	lazy var displayLink: CADisplayLink = CADisplayLink(target: self, selector: #selector(Engine.step))
+	lazy var displayLink: DisplayLink = DisplayLink { [weak self] displayLink in
+		self?.step(with: displayLink)
+	}
 
 	var animators = [YapAnimatorBox]()
 
-	override init() {
-		super.init()
-
-		displayLink.add(to: .current, forMode: .commonModes)
-	}
-
 	func add(animator: YapAnimatorCommonInterface) {
 
-		displayLink.isPaused = false
+		displayLink.paused = false
 		self.animators.append(YapAnimatorBox(value: animator))
 	}
 
@@ -415,7 +493,7 @@ fileprivate final class Engine: NSObject {
 		}
 	}
 
-	@objc func step (with displayLink: CADisplayLink) {
+	@objc func step (with displayLink: DisplayLink) {
 
 		for (idx, box) in animators.enumerated().reversed() {
 			if let animator = box.value {
@@ -426,7 +504,7 @@ fileprivate final class Engine: NSObject {
 		}
 
 		if animators.isEmpty {
-			displayLink.isPaused = true
+			displayLink.paused = true
 		}
 	}
 }
