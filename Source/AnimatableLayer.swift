@@ -166,16 +166,40 @@ public class YapAnimatedLayer {
 		}
 	})
 
+	public lazy var rotationX: YapAnimator<CGFloat> = YapAnimator(initialValue: 0, willBegin: { [unowned self] in
+		CGFloat((self.delegate?.value(forKeyPath: "transform.rotation.x")! as AnyObject).floatValue ?? 0)
+		}, eachFrame: { [unowned self] animator in
+			guard self.verify(value: animator.current.value) else { return }
+			self.instant {
+				animator.speed = self.speed
+				animator.bounciness = self.bounciness
+				self.delegate?.setValue(animator.current.value, forKeyPath: "transform.rotation.x")
+			}
+	})
+	
+	public lazy var rotationY: YapAnimator<CGFloat> = YapAnimator(initialValue: 0, willBegin: { [unowned self] in
+		CGFloat((self.delegate?.value(forKeyPath: "transform.rotation.y")! as AnyObject).floatValue ?? 0)
+		}, eachFrame: { [unowned self] animator in
+			guard self.verify(value: animator.current.value) else { return }
+			self.instant {
+				animator.speed = self.speed
+				animator.bounciness = self.bounciness
+				self.delegate?.setValue(animator.current.value, forKeyPath: "transform.rotation.y")
+			}
+	})
+	
 	public lazy var rotationZ: YapAnimator<CGFloat> = YapAnimator(initialValue: 0, willBegin: { [unowned self] in
-		CGFloat((self.delegate?.value(forKeyPath: "transform.rotation")! as AnyObject).floatValue ?? 0)
+		CGFloat((self.delegate?.value(forKeyPath: "transform.rotation.z")! as AnyObject).floatValue ?? 0)
 	}, eachFrame: { [unowned self] animator in
 		guard self.verify(value: animator.current.value) else { return }
 		self.instant {
 			animator.speed = self.speed
 			animator.bounciness = self.bounciness
-			self.delegate?.setValue(animator.current.value, forKeyPath: "transform.rotation")
+			self.delegate?.setValue(animator.current.value, forKeyPath: "transform.rotation.z")
 		}
 	})
+	
+	public lazy var rotation: (x: YapAnimator, y: YapAnimator, z: YapAnimator) = (self.rotationX, self.rotationY, self.rotationZ)
 
 	public lazy var scale: YapAnimator<CGFloat> = YapAnimator(initialValue: 0, willBegin: { [unowned self] in
 		CGFloat((self.delegate?.value(forKeyPath: "transform.scale")! as AnyObject).floatValue ?? 1)
