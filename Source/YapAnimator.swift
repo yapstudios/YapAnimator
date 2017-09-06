@@ -495,10 +495,15 @@ fileprivate final class Engine: NSObject {
 
 	@objc func step (with displayLink: DisplayLink) {
 
-		for (idx, box) in animators.enumerated().reversed() {
+		for box in animators {
 			if let animator = box.value {
 				animator.updateIfNeeded(dT: displayLink.duration)
-			} else {
+			}
+		}
+		
+		// Perform a removal pass on dead animators
+		for (idx, box) in animators.enumerated().reversed() {
+			if nil == box.value {
 				animators.remove(at: idx)
 			}
 		}
