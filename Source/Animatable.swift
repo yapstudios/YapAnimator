@@ -233,7 +233,7 @@ extension CATransform3D: Animatable {
 
 		public var components: [Double] {
 
-			guard let ci = CIColor(color: self) else { return Array<Double>(repeating: 0, count: type(of:self).count) }
+			guard let ci = CIColor(color: self) else { return Array<Double>(repeating: 0, count: Swift.type(of:self).count) }
 
 			return [
 				Double(ci.red),
