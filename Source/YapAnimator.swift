@@ -285,7 +285,7 @@ fileprivate extension YapAnimator {
 	}
 
 	func lerp(start: [Double], end: [Double], percent: Double) -> [Double] {
-		return zip(start, end).flatMap { lerp(start: $0.0, end: $0.1, percent: percent) }
+		return zip(start, end).compactMap { lerp(start: $0.0, end: $0.1, percent: percent) }
 	}
 
 	func criticalFriction() -> Double {
@@ -308,19 +308,23 @@ fileprivate extension YapAnimator {
 		self.observer = Engine.sharedInstance
 	}
 
-	func bouncy(offset: T, tension: Double, friction: Double) -> AccelerationFnType {
-
-		return { state in
-			T.composed(from: zip(offset.components, state.velocity.components)
-			.flatMap { $0.0 != 0.0 ? (-tension * $0.0) - (friction * $0.1) : 0.0 })
-		}
-	}
+    func bouncy(offset: T, tension: Double, friction: Double) -> AccelerationFnType {
+        return { state in
+            T.composed(from: zip(offset.components, state.velocity.components)
+                .compactMap {
+                    if $0.0 != 0.0 {
+                        return (-tension * $0.0) - (friction * $0.1)
+                    }
+                    return 0.0
+            })
+        }
+    }
 
 	func decay(forces: T, resistance: Double, dT: CFTimeInterval) -> AccelerationFnType {
 
 		return { state in
 			T.composed(from: zip(forces.components, state.velocity.components)
-				.flatMap { ($0.0 / dT) - $0.1 * resistance })
+				.compactMap { ($0.0 / dT) - $0.1 * resistance })
 		}
 	}
 
@@ -341,11 +345,11 @@ fileprivate extension YapAnimator {
 // MARK: - Everything else
 
 func +<T>(lhs: T, rhs: T) -> T where T: Animatable {
-	return T.composed(from: zip(lhs.components, rhs.components).flatMap { $0.0 + $0.1 })
+	return T.composed(from: zip(lhs.components, rhs.components).compactMap { $0.0 + $0.1 })
 }
 
 func -<T>(lhs: T, rhs: T) -> T where T: Animatable {
-	return T.composed(from: zip(lhs.components, rhs.components).flatMap { $0.0 - $0.1 })
+	return T.composed(from: zip(lhs.components, rhs.components).compactMap { $0.0 - $0.1 })
 }
 
 fileprivate enum YapAnimatorState {
@@ -441,7 +445,7 @@ fileprivate final class DisplayLink: NSObject {
 		#elseif os(iOS) || os(tvOS)
 
 			displayLink = CADisplayLink(target: self, selector: #selector(step(with:)))
-			displayLink?.add(to: .current, forMode: .commonModes)
+			displayLink?.add(to: .current, forMode: RunLoop.Mode.common)
 
 		#endif
 	}
