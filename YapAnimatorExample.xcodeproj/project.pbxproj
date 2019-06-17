@@ -43,7 +43,7 @@
 
 /* Begin PBXFileReference section */
 		070A17941EEF3840003D6DC9 /* YapAnimatorExample-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "YapAnimatorExample-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		070A17CE1EEF3A01003D6DC9 /* YapAnimator.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = YapAnimator.podspec; sourceTree = "<group>"; };
+		070A17CE1EEF3A01003D6DC9 /* YapAnimator.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = YapAnimator.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		07547DA21F101B0F00DDF3AF /* YapAnimatorExample-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "YapAnimatorExample-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0769FCC71F101E8A0087292C /* YapAnimatorExample-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "YapAnimatorExample-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		07AD66EB1F1049D900031DAE /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -668,7 +668,7 @@
 				DEVELOPMENT_TEAM = BM7GLKW999;
 				INFOPLIST_FILE = "Example/YapAnimatorExample-iOS/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yapstudios.YapAnimatorExample-test";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yapstudios.YapAnimatorExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -682,7 +682,7 @@
 				DEVELOPMENT_TEAM = BM7GLKW999;
 				INFOPLIST_FILE = "Example/YapAnimatorExample-iOS/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yapstudios.YapAnimatorExample-test";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yapstudios.YapAnimatorExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
