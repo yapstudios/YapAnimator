@@ -372,7 +372,7 @@ public struct PhysicsState<T> where T: Animatable {
 	public var velocity: T
 }
 
-fileprivate protocol YapAnimatorCommonInterface: class {
+fileprivate protocol YapAnimatorCommonInterface: AnyObject {
 
 	var state: YapAnimatorState { get set }
 
@@ -533,7 +533,7 @@ extension Engine: YapAnimatorObserver {
 	}
 }
 
-fileprivate protocol YapAnimatorObserver: class {
+fileprivate protocol YapAnimatorObserver: AnyObject {
 
 	func didChangeState(animator: YapAnimatorCommonInterface)
 }

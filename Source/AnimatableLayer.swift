@@ -211,6 +211,17 @@ public class YapAnimatedLayer {
 			self.delegate?.setValue(animator.current.value, forKeyPath: "transform.scale")
 		}
 	})
+    
+    public lazy var scaleY: YapAnimator<CGFloat> = YapAnimator(initialValue: 0, willBegin: { [unowned self] in
+        CGFloat((self.delegate?.value(forKeyPath: "transform.scale.y")! as AnyObject).floatValue ?? 1)
+    }, eachFrame: { [unowned self] animator in
+        guard self.verify(value: animator.current.value) else { return }
+        self.instant {
+            animator.speed = self.speed
+            animator.bounciness = self.bounciness
+            self.delegate?.setValue(animator.current.value, forKeyPath: "transform.scale.y")
+        }
+    })
 
 	public lazy var frame: YapAnimator<CGRect> = YapAnimator(initialValue: self.delegate!.frame, willBegin: { [unowned self] in
 		self.delegate?.frame ?? CGRect.zero
