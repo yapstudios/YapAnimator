@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "YapAnimator"
-  s.version      = "1.2.0"
+  s.version      = "1.3.2"
   s.summary      = "Yap Studios Animation Framework"
   s.homepage     = "http://yapstudios.com/"
   s.license      = "BSD"

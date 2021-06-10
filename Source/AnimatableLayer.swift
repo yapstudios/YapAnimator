@@ -211,7 +211,7 @@ public class YapAnimatedLayer {
 			self.delegate?.setValue(animator.current.value, forKeyPath: "transform.scale")
 		}
 	})
-
+    
 	public lazy var frame: YapAnimator<CGRect> = YapAnimator(initialValue: self.delegate!.frame, willBegin: { [unowned self] in
 		self.delegate?.frame ?? CGRect.zero
 	}, eachFrame: { [unowned self] animator in

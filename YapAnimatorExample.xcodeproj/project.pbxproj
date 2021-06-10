@@ -13,17 +13,14 @@
 		07AD66F61F1049D900031DAE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07AD66ED1F1049D900031DAE /* LaunchScreen.storyboard */; };
 		07AD66F71F1049D900031DAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07AD66EF1F1049D900031DAE /* Main.storyboard */; };
 		07AD66F81F1049D900031DAE /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AD66F11F1049D900031DAE /* FirstViewController.swift */; };
-		07AD66F91F1049D900031DAE /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07AD66F21F1049D900031DAE /* Info.plist */; };
 		07AD66FA1F1049D900031DAE /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AD66F31F1049D900031DAE /* SecondViewController.swift */; };
 		07AD67041F1049E700031DAE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AD66FC1F1049E700031DAE /* AppDelegate.swift */; };
 		07AD67051F1049E700031DAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07AD66FE1F1049E700031DAE /* Assets.xcassets */; };
 		07AD67061F1049E700031DAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07AD66FF1F1049E700031DAE /* Main.storyboard */; };
-		07AD67071F1049E700031DAE /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07AD67011F1049E700031DAE /* Info.plist */; };
 		07AD67081F1049E700031DAE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AD67021F1049E700031DAE /* ViewController.swift */; };
 		07AD67111F1049F500031DAE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AD670A1F1049F500031DAE /* AppDelegate.swift */; };
 		07AD67121F1049F500031DAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07AD670C1F1049F500031DAE /* Assets.xcassets */; };
 		07AD67131F1049F500031DAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07AD670D1F1049F500031DAE /* Main.storyboard */; };
-		07AD67141F1049F500031DAE /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07AD670F1F1049F500031DAE /* Info.plist */; };
 		07AD67151F1049F500031DAE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AD67101F1049F500031DAE /* ViewController.swift */; };
 		07D5E9961EEF3B0000B2A4A1 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 07D5E9951EEF3B0000B2A4A1 /* Podfile */; };
 		212CEC31CB820921A8FB9134 /* Pods_YapAnimatorExample_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F639E485A8B6A00C9444313E /* Pods_YapAnimatorExample_macOS.framework */; };
@@ -46,7 +43,7 @@
 
 /* Begin PBXFileReference section */
 		070A17941EEF3840003D6DC9 /* YapAnimatorExample-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "YapAnimatorExample-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		070A17CE1EEF3A01003D6DC9 /* YapAnimator.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = YapAnimator.podspec; sourceTree = "<group>"; };
+		070A17CE1EEF3A01003D6DC9 /* YapAnimator.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = YapAnimator.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		07547DA21F101B0F00DDF3AF /* YapAnimatorExample-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "YapAnimatorExample-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0769FCC71F101E8A0087292C /* YapAnimatorExample-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "YapAnimatorExample-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		07AD66EB1F1049D900031DAE /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -244,7 +241,6 @@
 				070A17911EEF3840003D6DC9 /* Frameworks */,
 				070A17921EEF3840003D6DC9 /* Resources */,
 				AB0FFEB3918589036896192B /* [CP] Embed Pods Frameworks */,
-				94C447967A049AC928A2383D /* [CP] Copy Pods Resources */,
 				07B062611F1024070079DC4B /* Embed Watch Content */,
 			);
 			buildRules = (
@@ -265,7 +261,6 @@
 				07547D9F1F101B0F00DDF3AF /* Frameworks */,
 				07547DA01F101B0F00DDF3AF /* Resources */,
 				6FE5B52D39C1A8964E5360B0 /* [CP] Embed Pods Frameworks */,
-				CBDB1B368D92C692F19E0F28 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -285,7 +280,6 @@
 				0769FCC41F101E8A0087292C /* Frameworks */,
 				0769FCC51F101E8A0087292C /* Resources */,
 				5794C9AF5091527BBF5FC2DB /* [CP] Embed Pods Frameworks */,
-				E1F64F6041301C393069841E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -303,12 +297,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "Yap Studios";
 				TargetAttributes = {
 					070A17931EEF3840003D6DC9 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 8JU59R7PAE;
+						DevelopmentTeam = BM7GLKW999;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 					07547DA11F101B0F00DDF3AF = {
@@ -323,7 +318,7 @@
 			};
 			buildConfigurationList = 070A178F1EEF3840003D6DC9 /* Build configuration list for PBXProject "YapAnimatorExample" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -348,7 +343,6 @@
 			files = (
 				07D5E9961EEF3B0000B2A4A1 /* Podfile in Resources */,
 				07AD66F71F1049D900031DAE /* Main.storyboard in Resources */,
-				07AD66F91F1049D900031DAE /* Info.plist in Resources */,
 				07AD66F61F1049D900031DAE /* LaunchScreen.storyboard in Resources */,
 				07AD66F51F1049D900031DAE /* Assets.xcassets in Resources */,
 				070A17CF1EEF3A01003D6DC9 /* YapAnimator.podspec in Resources */,
@@ -361,7 +355,6 @@
 			files = (
 				07AD67051F1049E700031DAE /* Assets.xcassets in Resources */,
 				07AD67061F1049E700031DAE /* Main.storyboard in Resources */,
-				07AD67071F1049E700031DAE /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,7 +364,6 @@
 			files = (
 				07AD67121F1049F500031DAE /* Assets.xcassets in Resources */,
 				07AD67131F1049F500031DAE /* Main.storyboard in Resources */,
-				07AD67141F1049F500031DAE /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,13 +376,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YapAnimatorExample-tvOS/Pods-YapAnimatorExample-tvOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/YapAnimator-tvOS/YapAnimator.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YapAnimator.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YapAnimatorExample-tvOS/Pods-YapAnimatorExample-tvOS-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YapAnimatorExample-tvOS/Pods-YapAnimatorExample-tvOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6FE5B52D39C1A8964E5360B0 /* [CP] Embed Pods Frameworks */ = {
@@ -399,28 +394,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YapAnimatorExample-macOS/Pods-YapAnimatorExample-macOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/YapAnimator-macOS/YapAnimator.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YapAnimator.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YapAnimatorExample-macOS/Pods-YapAnimatorExample-macOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		94C447967A049AC928A2383D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YapAnimatorExample-iOS/Pods-YapAnimatorExample-iOS-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YapAnimatorExample-macOS/Pods-YapAnimatorExample-macOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A678A281F6C5A134348E691C /* [CP] Check Pods Manifest.lock */ = {
@@ -429,13 +412,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YapAnimatorExample-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AB0FFEB3918589036896192B /* [CP] Embed Pods Frameworks */ = {
@@ -444,28 +430,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YapAnimatorExample-iOS/Pods-YapAnimatorExample-iOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/YapAnimator-iOS/YapAnimator.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YapAnimator.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YapAnimatorExample-iOS/Pods-YapAnimatorExample-iOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CBDB1B368D92C692F19E0F28 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YapAnimatorExample-macOS/Pods-YapAnimatorExample-macOS-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YapAnimatorExample-iOS/Pods-YapAnimatorExample-iOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D851E6D45216BF3C8483CEAE /* [CP] Check Pods Manifest.lock */ = {
@@ -474,28 +448,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YapAnimatorExample-macOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		E1F64F6041301C393069841E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YapAnimatorExample-tvOS/Pods-YapAnimatorExample-tvOS-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EAEB6828397497FDB2302015 /* [CP] Check Pods Manifest.lock */ = {
@@ -504,13 +466,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YapAnimatorExample-iOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -586,21 +551,31 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -623,7 +598,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -637,21 +612,31 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -668,7 +653,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -682,12 +667,12 @@
 			baseConfigurationReference = 40E2E05890DFB1F03B93F996 /* Pods-YapAnimatorExample-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 8JU59R7PAE;
+				DEVELOPMENT_TEAM = BM7GLKW999;
 				INFOPLIST_FILE = "Example/YapAnimatorExample-iOS/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yapstudios.YapAnimatorExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -696,12 +681,12 @@
 			baseConfigurationReference = 824AF5BDACE93830263B6FE5 /* Pods-YapAnimatorExample-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 8JU59R7PAE;
+				DEVELOPMENT_TEAM = BM7GLKW999;
 				INFOPLIST_FILE = "Example/YapAnimatorExample-iOS/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yapstudios.YapAnimatorExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -720,6 +705,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 8JU59R7PAE;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "Example/YapAnimatorExample-macOS/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -746,6 +732,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 8JU59R7PAE;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "Example/YapAnimatorExample-macOS/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -778,7 +765,7 @@
 				SDKROOT = appletvos;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 11.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Debug;
 		};
@@ -803,7 +790,7 @@
 				SDKROOT = appletvos;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 11.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};
