@@ -1,3 +1,7 @@
+> **Note: This project is archived and no longer maintained.** It served us well for years, but Apple's built-in spring animations (SwiftUI's `.spring()`, `UIView.animate(withSpring:)`) now cover the majority of use cases. The code still works if you need it — feel free to fork.
+
+---
+
 ![YapAnimatorLogo](Docs/header.gif)
 
 **YapAnimator** is your fast and friendly physics-based animation system. YapAnimator was built with ease-of-use in mind, keeping *you* sane and your designer very, *very* happy. All animations are interruptable, include completion blocks, and allow you to apply forces to them (e.g. adding the velocity from a gesture in a transition). We've included `Animatable` protocol conformance for some commonly animated types (`CG` types), but it's really easy to add conformance to any other type. **You can animate anything** that you can represent and compose with an array of `Double`s — view properties, music volume, morphing between bezier paths, colors, smoothing brush strokes, the list goes on… use your imagination!
@@ -38,7 +42,7 @@ Creating a custom animator is straightforward:
 
 - `initialValue` This sets the initial value of the animator and informs it what type it will be animating.
 - `willBegin` Called just before motion starts. Return the actual value of the property that you'll be animating. This allows the animator to sync up with that value in case it was changed outside of the scope of the animator. *(optional)*
-- `eachFrame` Called each frame of the animation — this is typically where you'd apply the animator's `current.value` to the property that you're animating. You can also use it to check values to trigger other actions / animations.
+- `eachFrame` Called each frame of the animation — this is typically where you'd apply the animator's `current.value` to the property that you're animating. You can also use it to check values to trigger other actions / animations.
 
 ```swift
 frameAnimator = YapAnimator(initialValue: square.frame, willBegin: { [unowned self] in
